@@ -10,7 +10,7 @@
     //herencia superclases, subclases
     //parent: se utiliza principalmente para acceder a métodos y propiedades de la clase padre cuando son sobrescritos en la clase hija.
     class Coche{
-        private $rueda;
+        var $rueda;
         var $color;
         var $motor;
         
@@ -63,7 +63,6 @@
 
     }
     $pegaso=new Camion();
-
     $pegaso->frenar();
     $pegaso->arrancar();    
         

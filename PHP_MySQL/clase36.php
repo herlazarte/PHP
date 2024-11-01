@@ -21,7 +21,7 @@
     //
     $fila=mysqli_fetch_row($resultados);
 
-    echo $fila[1];
+    echo $fila[0];
     ?>
     
 </body>
