@@ -8,7 +8,7 @@
 <body>
     <?php
         $conexion=new mysqli("localhost","root","","pruebas");
-
+        
         if($conexion->connect_errno){
             echo "fallo la conexion" . $conexion->connect_errno;
         }
@@ -19,7 +19,7 @@
 
         $resultado=$conexion->query($sql);
 
-        //si tenemos un error 
+        //si tenemos un error en la consulta (errores de sintaxis) nos devolvera un error 
         if($conexion->errno){
             die($conexion->errno);
         }
