@@ -21,8 +21,18 @@
                 <td colspan="2"><input type="submit" name="enviando" value="Dale"></td>
             </tr>
         </table>
-              
+
         </form>
+        <table>
+            <tr>
+                <th>Celda 1</th>
+                <th>Celda 2</th>
+            </tr>
+            <tr>
+                <td>Dato 1</td>
+                <td>Dato 2</td>
+            </tr>
+        </table>
     
 </body>
 </html>

@@ -10,8 +10,8 @@
     <form action="compruebaLogin.php" method="post">
         <table>
             <tr>
-                <td>Login</td>
-                <td><input type="text" name="login" id="login"></td>
+                <td>Usuario</td>
+                <td><input type="text" name="user" id="user"></td>
             </tr>
             <tr>
                 <td>Contraseña</td>
