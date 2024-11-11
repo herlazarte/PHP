@@ -31,7 +31,7 @@
 
         }
 
-        $conexion->close();
+        $conexion->close(); 
     
     
     ?>
