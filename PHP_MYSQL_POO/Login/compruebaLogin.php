@@ -36,7 +36,10 @@ try{
     $num_registros=$resultado->rowCount();
 
     if($num_registros != 0){
-        echo "Ingresaste";
+        session_start();
+        $_SESSION["usuario"]=$_POST["user"];
+
+        header("location:registrado.php");
 
     }else{
         // Establecer la ubicación de la respuesta
