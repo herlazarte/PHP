@@ -21,6 +21,8 @@ if(!isset($_SESSION["usuario"])){
 
 <p>Estas registrado</p>
 
+<p><a href="cerrarSesion.php">Cerrar Sesion</a></p>
+
     
 </body>
 </html>
