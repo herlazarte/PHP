@@ -6,5 +6,5 @@ setcookie('prueba','estoy en la cookies prueba');
  setcookie('prueba','estoy en la cookies prueba',time()+30,"/carpeta/subcarpeta/");
 
 // Destruir cookies
-setcookie('prueba',;'contenido',time()-1);
+// setcookie('prueba',;'contenido',time()-1);
 ?>

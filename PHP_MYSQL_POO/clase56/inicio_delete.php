@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="eliminar.php" method="post"">
+    <form action="eliminar.php" method="post">
     <table>
         <tr>
             <td>ID: <input type="text" name="id" id="id"></td>
