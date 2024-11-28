@@ -7,8 +7,22 @@
 </head>
 <body>
     <?php
-    $pass = "123456";
-    echo password_hash($pass, PASSWORD_DEFAULT);
+        $pass="1234";
+
+        $hash=password_hash($pass,PASSWORD_DEFAULT);
+        echo "La contra encriptada es: ".$hash;
+
+        /*comparamos la contraseña encriptada con la contraseña normal
+         
+        pass=1234
+        hash=encriptada 
+        
+        */
+        if(password_verify($pass,$hash)){
+            echo "La contra coincide";
+        }else{
+            echo "La contra no coincide";
+        }
     ?>
     
 </body>
