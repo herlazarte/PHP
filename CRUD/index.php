@@ -43,8 +43,10 @@
       <td><?php echo $persona->Direccion?></td>
  
       <td class="bot"><a href="delete.php?id=<?php echo $persona->id?>"><input type='button' name='del' id='del' value='Borrar'></a></td>
-      <td class='bot'><input type='button' name='up' id='up' value='Actualizar'></a></td>
+
+      <td class='bot'><a href="editar.php?id=<?php echo $persona->id?> & nom=<?php echo $persona->Nombre?> & ape=<?php echo $persona->Apellido?> & dir=<?php echo $persona->Direccion?>"><input type='button' name='up' id='up' value='Actualizar'></a></td>
     </tr>
+
     <?php endforeach;?>
     
 	<tr>
