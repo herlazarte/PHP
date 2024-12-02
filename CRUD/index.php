@@ -13,7 +13,7 @@
 
     include("conexion.php");
     
-    $conexion=$base->query("SELECT * FROM DATOS_USUARIOS");
+    $conexion=$base->query("SELECT * FROM datos_usuarios");
 
     $registros=$conexion->fetchAll(PDO::FETCH_OBJ);
   
@@ -33,16 +33,20 @@
       <td class="sin">&nbsp;</td>
     </tr> 
    
-		
+		<?php 
+      foreach($registros as $persona):?>
+    
    	<tr>
-      <td> </td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><?php echo $persona->id ?></td>
+      <td><?php echo $persona->Nombre?></td>
+      <td><?php echo $persona->Apellido?></td>
+      <td><?php echo $persona->Direccion?></td>
  
-      <td class="bot"><input type='button' name='del' id='del' value='Borrar'></td>
+      <td class="bot"><a href="delete.php?id=<?php echo $persona->id?>"><input type='button' name='del' id='del' value='Borrar'></a></td>
       <td class='bot'><input type='button' name='up' id='up' value='Actualizar'></a></td>
-    </tr>       
+    </tr>
+    <?php endforeach;?>
+    
 	<tr>
 	<td></td>
       <td><input type='text' name='Nom' size='10' class='centrado'></td>
