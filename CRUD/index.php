@@ -9,26 +9,61 @@
 </head>
 
 <body>
-  <?php 
+<?php
+include("conexion.php");
 
-    include("conexion.php");
-    
-    $conexion=$base->query("SELECT * FROM datos_usuarios");
+// Parámetros de paginación
+$tamaño_pagina = 5; // Cantidad de registros por página
 
-    $registros=$conexion->fetchAll(PDO::FETCH_OBJ);
-
-    if(isset($_POST["cr"])){
-      $nombre=$_POST["Nom"];
-      $apellido=$_POST["Ape"];
-      $direccion=$_POST["Dir"];
-      $sql="INSERT INTO datos_usuarios (Nombre,Apellido,Direccion) VALUES (:nom,:ape,:dir)";
-      $resultado=$base->prepare($sql);
-      $resultado->execute(array(":nom"=>$nombre,":ape"=>$apellido,":dir"=>$direccion));
-
-      header("location:index.php");
+// Verificar la página actual
+$pagina = 1; // Página por defecto
+if (isset($_GET["pagina"])) {
+    $pagina = (int)$_GET["pagina"]; // Convertir a entero
+    if ($pagina < 1) {
+        $pagina = 1; // Evitar números negativos o valores no válidos
     }
-  
-  ?>
+}
+
+// Calcular el inicio de los registros para la consulta SQL
+$empezar_desde = ($pagina - 1) * $tamaño_pagina;
+
+// Obtener el número total de registros
+$sql_total = "SELECT * FROM datos_usuarios";
+$resultado_total = $base->prepare($sql_total);
+$resultado_total->execute();
+$num_fila = $resultado_total->rowCount();
+
+// Calcular el número total de páginas
+$total_paginas = ceil($num_fila / $tamaño_pagina);
+
+// Consulta de registros con límite para la paginación
+$sql_paginado = "SELECT * FROM datos_usuarios LIMIT $empezar_desde, $tamaño_pagina";
+$resultado_paginado = $base->prepare($sql_paginado);
+$resultado_paginado->execute();
+$registros = $resultado_paginado->fetchAll(PDO::FETCH_OBJ);
+
+// Manejo de inserción de nuevos registros
+if (isset($_POST["cr"])) {
+    $nombre = $_POST["Nom"];
+    $apellido = $_POST["Ape"];
+    $direccion = $_POST["Dir"];
+    $sql_insert = "INSERT INTO datos_usuarios (Nombre, Apellido, Direccion) VALUES (:nom, :ape, :dir)";
+    $resultado_insert = $base->prepare($sql_insert);
+    $resultado_insert->execute([
+        ":nom" => $nombre,
+        ":ape" => $apellido,
+        ":dir" => $direccion
+    ]);
+
+    header("location:index.php");
+    exit();
+}
+
+// Mostrar los enlaces de paginación
+for ($i = 1; $i <= $total_paginas; $i++) {
+    echo "<a href='?pagina=$i'>$i</a>  ";
+}
+?>
 
 
 <h1>CRUD<span class="subtitulo">Create Read Update Delete</span></h1>
