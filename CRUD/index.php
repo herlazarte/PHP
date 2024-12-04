@@ -13,7 +13,7 @@
 
     include("conexion.php");
     
-    $conexion=$base->query("SELECT * FROM datos_usuarios");
+    $conexion=$base->query("SELECT * FROM datos_usuarios LIMIT 0,3");
 
     $registros=$conexion->fetchAll(PDO::FETCH_OBJ);
 
