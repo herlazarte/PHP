@@ -14,21 +14,26 @@
     include("conexion.php");
 
     $tamagno_pagina=5;
+
     if(isset($_GET["pagina"])){
-      if($_GET["pagina"]==1){
-        header("location:index.php");
-      }else{
-        $pagina=$_GET["pagina"];
-      }
+
+        if($_GET["pagina"]==1){
+          header("location:index.php");
+        }else{
+          $pagina=$_GET["pagina"];
+        }
+
     }else{
-      $pagina=1;
+        $pagina=1;
     }
 
     $empezar_desde=($pagina-1)*$tamagno_pagina;
+
     $sql_total="SELECT * FROM datos_usuarios";
     $resultado=$base->prepare($sql_total);
     $resultado->execute(array());
     $num_filas=$resultado->rowCount();
+    
     $total_paginas=ceil($num_filas/$tamagno_pagina);
 
     $registros=$base->query("SELECT * FROM datos_usuarios LIMIT $empezar_desde,$tamagno_pagina")->fetchAll(PDO::FETCH_OBJ);
