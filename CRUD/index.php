@@ -13,22 +13,28 @@
 
     include("conexion.php");
     
-    $conexion=$base->query("SELECT * FROM datos_usuarios LIMIT 0,3");
+    $conexion=$base->query("SELECT * FROM datos_usuarios");
 
     $registros=$conexion->fetchAll(PDO::FETCH_OBJ);
 
-    if(isset($_POST["cr"])){
-      $nombre=$_POST["Nom"];
-      $apellido=$_POST["Ape"];
-      $direccion=$_POST["Dir"];
-      $sql="INSERT INTO datos_usuarios (Nombre,Apellido,Direccion) VALUES (:nom,:ape,:dir)";
-      $resultado=$base->prepare($sql);
-      $resultado->execute(array(":nom"=>$nombre,":ape"=>$apellido,":dir"=>$direccion));
+// Manejo de inserción de nuevos registros
+if (isset($_POST["cr"])) {
+    $nombre = $_POST["Nom"];
+    $apellido = $_POST["Ape"];
+    $direccion = $_POST["Dir"];
+    $sql_insert = "INSERT INTO datos_usuarios (Nombre, Apellido, Direccion) VALUES (:nom, :ape, :dir)";
+    $resultado_insert = $base->prepare($sql_insert);
+    $resultado_insert->execute([
+        ":nom" => $nombre,
+        ":ape" => $apellido,
+        ":dir" => $direccion
+    ]);
 
-      header("location:index.php");
-    }
-  
-  ?>
+    header("location:index.php");
+    exit();
+}
+
+?>
 
 
 <h1>CRUD<span class="subtitulo">Create Read Update Delete</span></h1>
