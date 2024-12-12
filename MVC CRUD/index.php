@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="hoja.css">
+
 </head>
 <body>
     <h1>MODELO VISTA CONTROLADOR</h1>
     <?php
-        require_once("controller/productos_controlador.php");
+        require_once("controller/personas_controlador.php");
     
     ?>
     
