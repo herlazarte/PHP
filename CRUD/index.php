@@ -9,34 +9,38 @@
 </head>
 
 <body>
-  <?php 
+<?php
+include("conexion.php");
 
-    include("conexion.php");
+// Parámetros de paginación
+$tamaño_pagina = 5; // Cantidad de registros por página
 
-    $tamagno_pagina=5;
-
-    if(isset($_GET["pagina"])){
-
-        if($_GET["pagina"]==1){
-          header("location:index.php");
-        }else{
-          $pagina=$_GET["pagina"];
-        }
-
-    }else{
-        $pagina=1;
+// Verificar la página actual
+$pagina = 1; // Página por defecto
+if (isset($_GET["pagina"])) {
+    $pagina = (int)$_GET["pagina"]; // Convertir a entero
+    if ($pagina < 1) {
+        $pagina = 1; // Evitar números negativos o valores no válidos
     }
+}
 
-    $empezar_desde=($pagina-1)*$tamagno_pagina;
+// Calcular el inicio de los registros para la consulta SQL
+$empezar_desde = ($pagina - 1) * $tamaño_pagina;
 
-    $sql_total="SELECT * FROM datos_usuarios";
-    $resultado=$base->prepare($sql_total);
-    $resultado->execute(array());
-    $num_filas=$resultado->rowCount();
-    
-    $total_paginas=ceil($num_filas/$tamagno_pagina);
+// Obtener el número total de registros
+$sql_total = "SELECT * FROM datos_usuarios";
+$resultado_total = $base->prepare($sql_total);
+$resultado_total->execute();
+$num_fila = $resultado_total->rowCount();
 
-    $registros=$base->query("SELECT * FROM datos_usuarios LIMIT $empezar_desde,$tamagno_pagina")->fetchAll(PDO::FETCH_OBJ);
+// Calcular el número total de páginas
+$total_paginas = ceil($num_fila / $tamaño_pagina);
+
+// Consulta de registros con límite para la paginación
+$sql_paginado = "SELECT * FROM datos_usuarios LIMIT $empezar_desde, $tamaño_pagina";
+$resultado_paginado = $base->prepare($sql_paginado);
+$resultado_paginado->execute();
+$registros = $resultado_paginado->fetchAll(PDO::FETCH_OBJ);
 
 // Manejo de inserción de nuevos registros
 if (isset($_POST["cr"])) {
@@ -55,6 +59,10 @@ if (isset($_POST["cr"])) {
     exit();
 }
 
+// Mostrar los enlaces de paginación
+for ($i = 1; $i <= $total_paginas; $i++) {
+    echo "<a href='?pagina=$i'>$i</a>  ";
+}
 ?>
 
 
